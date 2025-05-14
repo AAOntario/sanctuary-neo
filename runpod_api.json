@@ -1,0 +1,31 @@
+{
+    "name": "sanctuary-neo",
+    "imageName": "aaontario/sanctuary-neo:latest",
+    "gpuTypeId": "h100",
+    "cloudType": "SECURE",              // Secure Cloud required for network volumes
+    "regionId": "CA-MTL-1",             // Montreal region
+    "containerDiskInGb": 40,
+    "volumeMounts": [
+      {
+        "volumeId": "0w7cze7hcm",
+        "mountPath": "/workspace"
+      }
+    ],
+    "env": {
+      "OLLAMA_MODELS": "/workspace/ollama/models",
+      "WEBUI_DATA": "/workspace/webui_data",
+      "JUPYTER_RUNTIME_DIR": "/workspace/jupyter"
+    },
+    "ports": [
+      { "containerPort": 11434, "protocol": "tcp" },
+      { "containerPort": 3000,  "protocol": "tcp" },
+      { "containerPort": 8888,  "protocol": "tcp" },
+      { "containerPort": 2222,  "protocol": "tcp" },
+      { "containerPort": 8080,  "protocol": "tcp" }
+    ],
+    "startCommand": null,
+    "network": "public",
+    "gpuCount": 1,                      // Number of GPUs (for H100 SXM: 1 per pod)
+    "onDemand": true,                   // On-demand pod (not spot/preemptible)
+    "volumeType": "NVME"                // NVMe disk type for fast ephemeral storage
+  }
